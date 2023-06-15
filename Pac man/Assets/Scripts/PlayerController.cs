@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
+    public bool adv = false;
+    public int time;
+    private float timeGo;
     private Rigidbody playerRb;
     // Start is called before the first frame update
     void Start()
@@ -16,6 +19,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
+        TimeGo();
     }
     void Move()
     {
@@ -24,7 +28,19 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = new Vector3(mh,0f,mv);
         playerRb.velocity = move * speed;
-
-
+    }
+    void TimeGo()
+    {
+        if(adv) 
+        {
+            timeGo += Time.deltaTime;
+            time = Mathf.RoundToInt(timeGo);
+            if(time == 8)
+            {
+                adv = false;
+                timeGo = 0;
+                time = 0;
+            }
+        }
     }
 }
